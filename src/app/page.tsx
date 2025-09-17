@@ -10,14 +10,13 @@ import "react-image-lightbox/style.css";
 import Lightbox from "react-image-lightbox";
 
 export default function Page() {
-  const galleryItems = [
-    { src: "1000286390.jpg", label: "Team Training" },
-    { src: "1000286392.jpg", label: "Medical Insights" },
-    { src: "1000286398.jpg", label: "Personalised Scheduling" },
-  ];
-
+  // Lightbox state for the 3-image gallery
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+
+  // Inlined arrays to guarantee only these 3 items are used everywhere
+  const gallerySrcs = ["1000286390.jpg", "1000286392.jpg", "1000286398.jpg"];
+  const galleryLabels = ["Team Training", "Medical Insights", "Personalised Scheduling"];
 
   return (
     <main>
@@ -162,7 +161,7 @@ export default function Page() {
         </div>
       </Section>
 
-      {/* Refined Responsive Gallery with aspect-ratio + Lightbox */}
+      {/* Refined Responsive Gallery with aspect-ratio + Lightbox (ONLY 3 items) */}
       <Section title="Gallery">
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
@@ -174,7 +173,7 @@ export default function Page() {
             visible: { transition: { staggerChildren: 0.2 } },
           }}
         >
-          {galleryItems.map((item, i) => (
+          {gallerySrcs.map((src, i) => (
             <motion.div
               key={i}
               className="relative group rounded-xl overflow-hidden shadow-lg bg-white/5 cursor-pointer"
@@ -191,8 +190,8 @@ export default function Page() {
               {/* Aspect-ratio wrapper to prevent layout shift */}
               <div className="relative w-full aspect-[4/3] overflow-hidden">
                 <img
-                  src={`/images/${item.src}`}
-                  alt={item.label}
+                  src={`/images/${src}`}
+                  alt={galleryLabels[i]}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -200,7 +199,7 @@ export default function Page() {
               {/* Hover overlay with caption */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <span className="text-white font-semibold text-base sm:text-lg">
-                  {item.label}
+                  {galleryLabels[i]}
                 </span>
               </div>
             </motion.div>
@@ -209,17 +208,17 @@ export default function Page() {
 
         {isOpen && (
           <Lightbox
-            mainSrc={`/images/${galleryItems[photoIndex].src}`}
-            nextSrc={`/images/${galleryItems[(photoIndex + 1) % galleryItems.length].src}`}
-            prevSrc={`/images/${galleryItems[(photoIndex + galleryItems.length - 1) % galleryItems.length].src}`}
+            mainSrc={`/images/${gallerySrcs[photoIndex]}`}
+            nextSrc={`/images/${gallerySrcs[(photoIndex + 1) % gallerySrcs.length]}`}
+            prevSrc={`/images/${gallerySrcs[(photoIndex + gallerySrcs.length - 1) % gallerySrcs.length]}`}
             onCloseRequest={() => setIsOpen(false)}
             onMovePrevRequest={() =>
-              setPhotoIndex((photoIndex + galleryItems.length - 1) % galleryItems.length)
+              setPhotoIndex((photoIndex + gallerySrcs.length - 1) % gallerySrcs.length)
             }
             onMoveNextRequest={() =>
-              setPhotoIndex((photoIndex + 1) % galleryItems.length)
+              setPhotoIndex((photoIndex + 1) % gallerySrcs.length)
             }
-            imageTitle={galleryItems[photoIndex].label}
+            imageTitle={galleryLabels[photoIndex]}
           />
         )}
       </Section>
