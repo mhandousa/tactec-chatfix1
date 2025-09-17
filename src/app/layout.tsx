@@ -1,4 +1,4 @@
-import "./styles/globals.css";
+import "../styles/globals.css";
 import type { Metadata } from "next";
 
 const siteName = "TacTec";
@@ -14,13 +14,7 @@ export const metadata: Metadata = {
   description:
     "One platform for operations, medical, tactics, reporting, communication, and more — built for modern football clubs.",
   applicationName: siteName,
-  icons: [
-    { rel: "icon", url: "/favicon.ico" },
-    { rel: "apple-touch-icon", url: "/apple-touch-icon.png" },
-  ],
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: domain,
@@ -37,10 +31,7 @@ export const metadata: Metadata = {
       "Unified platform for football operations: medical, tactics, reporting, comms, and more.",
     images: [ogImage],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
