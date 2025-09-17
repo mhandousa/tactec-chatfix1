@@ -63,7 +63,6 @@ export default function Navbar() {
             activeClass="text-white font-bold"
             className="cursor-pointer hover:text-white"
           >
-            Get Started
           </Link>
         </nav>
       </div>
