@@ -5,18 +5,42 @@ import Section from "@/components/Section";
 import FeatureCard from "@/components/FeatureCard";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import "react-image-lightbox/style.css";
-import Lightbox from "react-image-lightbox";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
-  // Lightbox state for the 3-image gallery
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-
   // Inlined arrays to guarantee only these 3 items are used everywhere
   const gallerySrcs = ["1000286390.jpg", "1000286392.jpg", "1000286398.jpg"];
   const galleryLabels = ["Team Training", "Medical Insights", "Personalised Scheduling"];
+
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openAt = (idx: number) => {
+    setPhotoIndex(idx);
+    setIsOpen(true);
+  };
+
+  const close = () => setIsOpen(false);
+
+  const prev = useCallback(() => {
+    setPhotoIndex((i) => (i + gallerySrcs.length - 1) % gallerySrcs.length);
+  }, [gallerySrcs.length]);
+
+  const next = useCallback(() => {
+    setPhotoIndex((i) => (i + 1) % gallerySrcs.length);
+  }, [gallerySrcs.length]);
+
+  // Keyboard navigation for the custom lightbox
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, prev, next]);
 
   return (
     <main>
@@ -30,8 +54,8 @@ export default function Page() {
             background: [
               "linear-gradient(to right, #f43f5e, #8b5cf6, #3b82f6)",
               "linear-gradient(to right, #3b82f6, #10b981, #f59e0b)",
-              "linear-gradient(to right, #8b5cf6, #ec4899, #f43f5e)",
-            ],
+              "linear-gradient(to right, #8b5cf6, #ec4899, #f43f5e)"
+            ]
           }}
           transition={{ duration: 15, repeat: Infinity, repeatType: "reverse" }}
         />
@@ -161,7 +185,7 @@ export default function Page() {
         </div>
       </Section>
 
-      {/* Refined Responsive Gallery with aspect-ratio + Lightbox (ONLY 3 items) */}
+      {/* Refined Responsive Gallery with aspect-ratio + Custom Lightbox */}
       <Section title="Gallery">
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
@@ -170,20 +194,17 @@ export default function Page() {
           viewport={{ once: true }}
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.2 } },
+            visible: { transition: { staggerChildren: 0.2 } }
           }}
         >
           {gallerySrcs.map((src, i) => (
             <motion.div
               key={i}
               className="relative group rounded-xl overflow-hidden shadow-lg bg-white/5 cursor-pointer"
-              onClick={() => {
-                setPhotoIndex(i);
-                setIsOpen(true);
-              }}
+              onClick={() => openAt(i)}
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0 },
+                visible: { opacity: 1, y: 0 }
               }}
               transition={{ duration: 0.6 }}
             >
@@ -206,20 +227,56 @@ export default function Page() {
           ))}
         </motion.div>
 
+        {/* Custom Lightbox Modal */}
         {isOpen && (
-          <Lightbox
-            mainSrc={`/images/${gallerySrcs[photoIndex]}`}
-            nextSrc={`/images/${gallerySrcs[(photoIndex + 1) % gallerySrcs.length]}`}
-            prevSrc={`/images/${gallerySrcs[(photoIndex + gallerySrcs.length - 1) % gallerySrcs.length]}`}
-            onCloseRequest={() => setIsOpen(false)}
-            onMovePrevRequest={() =>
-              setPhotoIndex((photoIndex + gallerySrcs.length - 1) % gallerySrcs.length)
-            }
-            onMoveNextRequest={() =>
-              setPhotoIndex((photoIndex + 1) % gallerySrcs.length)
-            }
-            imageTitle={galleryLabels[photoIndex]}
-          />
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={close}
+            aria-modal="true"
+            role="dialog"
+          >
+            {/* Stop propagation so clicking image/controls doesn't close */}
+            <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+              {/* Image */}
+              <img
+                src={`/images/${gallerySrcs[photoIndex]}`}
+                alt={galleryLabels[photoIndex]}
+                className="w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+              />
+
+              {/* Close */}
+              <button
+                onClick={close}
+                aria-label="Close"
+                className="absolute -top-10 right-0 md:top-2 md:right-2 rounded-full bg-white/10 hover:bg-white/20 p-2 md:p-3 text-white"
+              >
+                ✕
+              </button>
+
+              {/* Prev */}
+              <button
+                onClick={prev}
+                aria-label="Previous image"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 p-3 text-white"
+              >
+                ←
+              </button>
+
+              {/* Next */}
+              <button
+                onClick={next}
+                aria-label="Next image"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 p-3 text-white"
+              >
+                →
+              </button>
+
+              {/* Caption */}
+              <div className="mt-3 text-center text-white/90">
+                {galleryLabels[photoIndex]}
+              </div>
+            </div>
+          </div>
         )}
       </Section>
 
