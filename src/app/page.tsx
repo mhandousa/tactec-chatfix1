@@ -13,7 +13,7 @@ export default function Page() {
   const galleryItems = [
     { src: "1000286390.jpg", label: "Team Training" },
     { src: "1000286392.jpg", label: "Medical Insights" },
-    { src: "1000286398.jpg", label: "Match Analysis" },
+    { src: "1000286398.jpg", label: "Personalised Scheduling" },
   ];
 
   const [photoIndex, setPhotoIndex] = useState(0);
