@@ -11,64 +11,74 @@ export default function Page() {
     <main>
       <Navbar />
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto py-20 flex flex-col md:flex-row items-center gap-10">
+      {/* Hero with animated gradient background */}
+      <section className="relative overflow-hidden">
+        {/* Gradient background */}
         <motion.div
-          className="flex-1"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1
-            className="text-5xl font-bold"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            Revolutionising Football Club Management
-          </motion.h1>
-          <motion.p
-            className="text-gray-300 mt-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            One platform for operations, medical, tactics, reporting, communication,
-            and more.
-          </motion.p>
-          <motion.div
-            className="mt-6 flex gap-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-          >
-            <a
-              href="#start"
-              className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
-            >
-              Get Started
-            </a>
-            <a
-              href="#features"
-              className="border border-white/30 px-6 py-3 rounded-xl font-semibold"
-            >
-              Explore Features
-            </a>
-          </motion.div>
-        </motion.div>
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-rose-500/20 via-purple-500/20 to-blue-500/20 blur-3xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+        />
 
-        <motion.div
-          className="flex-1"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <img
-            src="/images/surface-pro-8-1-2.png"
-            alt="TacTec App"
-            className="rounded-xl"
-          />
-        </motion.div>
+        <div className="max-w-6xl mx-auto py-20 flex flex-col md:flex-row items-center gap-10 relative">
+          <motion.div
+            className="flex-1"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h1
+              className="text-5xl font-bold"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              Revolutionising Football Club Management
+            </motion.h1>
+            <motion.p
+              className="text-gray-300 mt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+            >
+              One platform for operations, medical, tactics, reporting,
+              communication, and more.
+            </motion.p>
+            <motion.div
+              className="mt-6 flex gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+            >
+              <a
+                href="#start"
+                className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
+              >
+                Get Started
+              </a>
+              <a
+                href="#features"
+                className="border border-white/30 px-6 py-3 rounded-xl font-semibold"
+              >
+                Explore Features
+              </a>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            className="flex-1"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <img
+              src="/images/surface-pro-8-1-2.png"
+              alt="TacTec App"
+              className="rounded-xl"
+            />
+          </motion.div>
+        </div>
       </section>
 
       <Section
