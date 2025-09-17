@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Section from "@/components/Section";
 import FeatureCard from "@/components/FeatureCard";
 import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
 
 export default function Page() {
   return (
@@ -105,23 +106,34 @@ export default function Page() {
       </Section>
 
       <Section title="Gallery">
-        <div className="grid md:grid-cols-3 gap-6">
-          <img
-            src="/images/1000286390.jpg"
-            alt="Gallery 1"
-            className="rounded-xl"
-          />
-          <img
-            src="/images/1000286392.jpg"
-            alt="Gallery 2"
-            className="rounded-xl"
-          />
-          <img
-            src="/images/1000286398.jpg"
-            alt="Gallery 3"
-            className="rounded-xl"
-          />
-        </div>
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+        >
+          {["1000286390.jpg", "1000286392.jpg", "1000286398.jpg"].map((img, i) => (
+            <motion.img
+              key={i}
+              src={`/images/${img}`}
+              alt={`Gallery ${i + 1}`}
+              className="rounded-xl"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6 }}
+            />
+          ))}
+        </motion.div>
       </Section>
 
       <Footer />
