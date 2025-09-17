@@ -162,7 +162,7 @@ export default function Page() {
         </div>
       </Section>
 
-      {/* Refined Responsive Gallery with Lightbox */}
+      {/* Refined Responsive Gallery with aspect-ratio + Lightbox */}
       <Section title="Gallery">
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
@@ -188,11 +188,16 @@ export default function Page() {
               }}
               transition={{ duration: 0.6 }}
             >
-              <img
-                src={`/images/${item.src}`}
-                alt={item.label}
-                className="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+              {/* Aspect-ratio wrapper to prevent layout shift */}
+              <div className="relative w-full aspect-[4/3] overflow-hidden">
+                <img
+                  src={`/images/${item.src}`}
+                  alt={item.label}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Hover overlay with caption */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <span className="text-white font-semibold text-base sm:text-lg">
                   {item.label}
