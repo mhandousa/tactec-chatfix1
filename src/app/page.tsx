@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
-  // Inlined arrays to guarantee only these 3 items are used everywhere
+  // Gallery items (hard-coded to 3 photos)
   const gallerySrcs = ["1000286390.jpg", "1000286392.jpg", "1000286398.jpg"];
   const galleryLabels = ["Team Training", "Medical Insights", "Personalised Scheduling"];
 
@@ -19,7 +19,6 @@ export default function Page() {
     setPhotoIndex(idx);
     setIsOpen(true);
   };
-
   const close = () => setIsOpen(false);
 
   const prev = useCallback(() => {
@@ -185,7 +184,7 @@ export default function Page() {
         </div>
       </Section>
 
-      {/* Refined Responsive Gallery with aspect-ratio + Custom Lightbox */}
+      {/* Responsive Gallery with aspect-ratio + Custom Lightbox */}
       <Section title="Gallery">
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
