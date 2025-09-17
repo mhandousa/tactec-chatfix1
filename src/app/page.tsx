@@ -11,14 +11,23 @@ export default function Page() {
     <main>
       <Navbar />
 
-      {/* Hero with animated gradient background */}
+      {/* Hero with animated aurora gradient */}
       <section className="relative overflow-hidden">
-        {/* Gradient background */}
+        {/* Animated gradient background */}
         <motion.div
-          className="absolute inset-0 -z-10 bg-gradient-to-r from-rose-500/20 via-purple-500/20 to-blue-500/20 blur-3xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2 }}
+          className="absolute inset-0 -z-10 blur-3xl opacity-40"
+          animate={{
+            background: [
+              "linear-gradient(to right, #f43f5e, #8b5cf6, #3b82f6)",
+              "linear-gradient(to right, #3b82f6, #10b981, #f59e0b)",
+              "linear-gradient(to right, #8b5cf6, #ec4899, #f43f5e)",
+            ],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
         />
 
         <div className="max-w-6xl mx-auto py-20 flex flex-col md:flex-row items-center gap-10 relative">
@@ -144,6 +153,7 @@ export default function Page() {
         </div>
       </Section>
 
+      {/* Refined Gallery */}
       <Section title="Gallery">
         <motion.div
           className="grid md:grid-cols-3 gap-6"
@@ -152,23 +162,34 @@ export default function Page() {
           viewport={{ once: true }}
           variants={{
             hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.2 },
-            },
+            visible: { transition: { staggerChildren: 0.2 } },
           }}
         >
-          {["1000286390.jpg", "1000286392.jpg", "1000286398.jpg"].map((img, i) => (
-            <motion.img
+          {[
+            { src: "1000286390.jpg", label: "Team Training" },
+            { src: "1000286392.jpg", label: "Medical Insights" },
+            { src: "1000286398.jpg", label: "Match Analysis" },
+            { src: "tactec-2nd-lockup.png", label: "TacTec Branding" },
+          ].map((item, i) => (
+            <motion.div
               key={i}
-              src={`/images/${img}`}
-              alt={`Gallery ${i + 1}`}
-              className="rounded-xl"
+              className="relative group rounded-xl overflow-hidden shadow-lg bg-white/5"
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.6 }}
-            />
+            >
+              <img
+                src={`/images/${item.src}`}
+                alt={item.label}
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              {/* Overlay with caption */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="text-white font-semibold text-lg">{item.label}</span>
+              </div>
+            </motion.div>
           ))}
         </motion.div>
       </Section>
