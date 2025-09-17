@@ -38,23 +38,24 @@ export default function Page() {
           transition={{ duration: 15, repeat: Infinity, repeatType: "reverse" }}
         />
 
-        <div className="max-w-6xl mx-auto py-20 flex flex-col md:flex-row items-center gap-10 relative">
+        <div className="max-w-6xl mx-auto py-16 sm:py-20 flex flex-col md:flex-row items-center gap-10 relative px-4">
           <motion.div
-            className="flex-1"
+            className="flex-1 text-center md:text-left"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
             <motion.h1
-              className="text-5xl font-bold"
+              className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               Revolutionising Football Club Management
             </motion.h1>
+
             <motion.p
-              className="text-gray-300 mt-4"
+              className="text-sm sm:text-base lg:text-lg text-gray-300 mt-3 sm:mt-4 max-w-xl mx-auto md:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
@@ -62,21 +63,22 @@ export default function Page() {
               One platform for operations, medical, tactics, reporting,
               communication, and more.
             </motion.p>
+
             <motion.div
-              className="mt-6 flex gap-4"
+              className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.6 }}
             >
               <a
                 href="#start"
-                className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
+                className="bg-white text-black px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base"
               >
                 Get Started
               </a>
               <a
                 href="#features"
-                className="border border-white/30 px-6 py-3 rounded-xl font-semibold"
+                className="border border-white/30 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-sm sm:text-base"
               >
                 Explore Features
               </a>
@@ -92,18 +94,79 @@ export default function Page() {
             <img
               src="/images/surface-pro-8-1-2.png"
               alt="TacTec App"
-              className="rounded-xl"
+              className="rounded-xl w-full max-w-md mx-auto"
             />
           </motion.div>
         </div>
       </section>
 
-      {/* Other sections (Challenge, Solution, Features, Tech, Start) remain unchanged... */}
+      <Section
+        id="challenge"
+        title="The Challenge"
+        subtitle="Fragmented football operations slow teams down."
+      >
+        <img
+          src="/images/2-the-challenge-fragmented-football-operations.png"
+          alt="Challenge"
+          className="rounded-xl w-full h-auto"
+        />
+      </Section>
 
-      {/* Refined Gallery with Lightbox */}
+      <Section
+        id="solution"
+        title="The Solution"
+        subtitle="A unified platform that consolidates everything clubs need."
+      >
+        <img
+          src="/images/3-the-solution.png"
+          alt="Solution"
+          className="rounded-xl w-full h-auto"
+        />
+      </Section>
+
+      <Section
+        id="features"
+        title="Features"
+        subtitle="Cross-platform excellence, integrated care, advanced reporting, and more."
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <FeatureCard index={0} title="Cross-Platform Excellence" img="/images/5-cross-platform-excellence.png" />
+          <FeatureCard index={1} title="Why Choose TacTec" img="/images/6-why-choose-tactec.png" />
+          <FeatureCard index={2} title="Tactical Board & Formation Maker" img="/images/7-tactical-board-and-formation-maker.png" />
+          <FeatureCard index={3} title="Comprehensive Team Management" img="/images/8-comprehensive-team-management.png" />
+          <FeatureCard index={4} title="Medical Module & Wellness Monitoring" img="/images/9-medical-module-and-wellness-monitoring.png" />
+          <FeatureCard index={5} title="Proactive Health Management" img="/images/10-proactive-health-management.png" />
+          <FeatureCard index={6} title="Advanced Reporting Systems" img="/images/11-advanced-reporting-systems.png" />
+          <FeatureCard index={7} title="Integrated Communication System" img="/images/12-integrated-communication-system.png" />
+        </div>
+      </Section>
+
+      <Section
+        id="tech"
+        title="Technical Excellence"
+        subtitle="Universal Clean Architecture & Revolutionary Graphics Engine."
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <FeatureCard index={0} title="Universal Clean Architecture" img="/images/13-technical-excellence-universal-clean-architecture.png" />
+          <FeatureCard index={1} title="Revolutionary Graphics Engine" img="/images/14-revolutionary-graphics-engine.png" />
+        </div>
+      </Section>
+
+      <Section
+        id="start"
+        title="Getting Started"
+        subtitle="Onboarding is simple and guided."
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <FeatureCard index={0} title="Getting Started" img="/images/18-getting-started.png" />
+          <FeatureCard index={1} title="Your Club in Your Hand" img="/images/19-your-club-in-your-hand.png" />
+        </div>
+      </Section>
+
+      {/* Refined Responsive Gallery with Lightbox */}
       <Section title="Gallery">
         <motion.div
-          className="grid md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -129,10 +192,10 @@ export default function Page() {
               <img
                 src={`/images/${item.src}`}
                 alt={item.label}
-                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="text-white font-semibold text-lg">
+                <span className="text-white font-semibold text-base sm:text-lg">
                   {item.label}
                 </span>
               </div>
