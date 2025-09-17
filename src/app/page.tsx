@@ -13,12 +13,35 @@ export default function Page() {
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto py-20 flex flex-col md:flex-row items-center gap-10">
-        <div className="flex-1">
-          <h1 className="text-5xl font-bold">Revolutionising Football Club Management</h1>
-          <p className="text-gray-300 mt-4">
-            One platform for operations, medical, tactics, reporting, communication, and more.
-          </p>
-          <div className="mt-6 flex gap-4">
+        <motion.div
+          className="flex-1"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h1
+            className="text-5xl font-bold"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            Revolutionising Football Club Management
+          </motion.h1>
+          <motion.p
+            className="text-gray-300 mt-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            One platform for operations, medical, tactics, reporting, communication,
+            and more.
+          </motion.p>
+          <motion.div
+            className="mt-6 flex gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+          >
             <a
               href="#start"
               className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
@@ -31,15 +54,21 @@ export default function Page() {
             >
               Explore Features
             </a>
-          </div>
-        </div>
-        <div className="flex-1">
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="flex-1"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
           <img
             src="/images/surface-pro-8-1-2.png"
             alt="TacTec App"
             className="rounded-xl"
           />
-        </div>
+        </motion.div>
       </section>
 
       <Section
@@ -114,9 +143,7 @@ export default function Page() {
           variants={{
             hidden: {},
             visible: {
-              transition: {
-                staggerChildren: 0.2,
-              },
+              transition: { staggerChildren: 0.2 },
             },
           }}
         >
