@@ -14,7 +14,6 @@ export default function Page() {
     { src: "1000286390.jpg", label: "Team Training" },
     { src: "1000286392.jpg", label: "Medical Insights" },
     { src: "1000286398.jpg", label: "Match Analysis" },
-    { src: "tactec-2nd-lockup.png", label: "TacTec Branding" },
   ];
 
   const [photoIndex, setPhotoIndex] = useState(0);
